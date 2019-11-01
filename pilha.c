@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #define MAX 10
 
-int pilha[MAX];
+char pilha[MAX];
 int inicio,fim;
 
 int pilhaCheia(){
@@ -15,11 +15,11 @@ void push(char x){
 	if( !pilhaCheia() ){
 		pilha[fim++] = x;	//adiciona o valor e soma +1 posiçao
 	}else{
-	printf("Pilha cheia \n");
+	printf("\nPilha cheia \n");
 	}
 }
 int pop(){
-	int aux;
+	char aux;
 	if( !pilhaVazia() ){
 		aux=pilha[fim - 1];		//volta uma posiçao e passa o numero e entao decrementa
 		fim--;
@@ -32,7 +32,7 @@ int pop(){
 	}
 
 
-void exibe(int pilha[MAX]){
+void exibe(char pilha[MAX]){
 	 int x;
     for( x = inicio; x < fim; x++) {
         printf("%c ", pilha[x]);	//exibe o vetor;
@@ -56,26 +56,26 @@ int main(){
     printf("\n2 DESEMPILHA:\n");
     printf("\n3 Mostra elementos da pilha:\n");
     printf("\n4 Mostra Top:\n");
-    printf("\n5 Sair:\n");
+    printf("\n5 Sair:\n\n");
     scanf("%d",&escolha);
 
     switch(escolha) {
 
     case 1:
-        printf("Escolha o valor: ");
+        printf("\nEscolha o valor: ");
         scanf(" %c", &valor);
         push(valor);
         break;
     case 2:
         if (!pilhaVazia()) {
-            printf("Elemento removido: %c\n", pop());
+            printf("\nElemento removido: %c\n", pop());
         } else {
             printf("\nA pilha esta vazia!\n");
         }
         break;
     case 3:
         if (!pilhaVazia()) { // se a pilha não está vazia
-            printf("Elementos: ");
+            printf("\nElementos: ");
             exibe(pilha); // aqui usa a função exibe para mostrar os elementos
         } else {
             printf("\nA pilha esta vazia!\n");
@@ -83,7 +83,7 @@ int main(){
         break;
     case 4:
         if(!pilhaVazia()){
-            printf("\n%c",top());
+            printf("\nTopo da Pilha: %c\n",top());
         }else{
             printf("\nA pilha esta vazia!\n");
             }
