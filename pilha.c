@@ -11,11 +11,11 @@ int pilhaCheia(){
 int pilhaVazia(){
 	return (inicio == fim); 	// verifica se esta vazio e retorna;
 }
-void push(int x){
+void push(char x){
 	if( !pilhaCheia() ){
 		pilha[fim++] = x;	//adiciona o valor e soma +1 posiçao
 	}else{
-	printf("Pilha cheia \n");	
+	printf("Pilha cheia \n");
 	}
 }
 int pop(){
@@ -24,24 +24,24 @@ int pop(){
 		aux=pilha[fim - 1];		//volta uma posiçao e passa o numero e entao decrementa
 		fim--;
 		return aux;
-		
+
 		}else{
 			printf("Pilha vazia \n");
-		return -1;	
+		return -1;
 		}
 	}
-	
+
 
 void exibe(int pilha[MAX]){
 	 int x;
     for( x = inicio; x < fim; x++) {
-        printf("%d ", pilha[x]);	//exibe o vetor;
+        printf("%c ", pilha[x]);	//exibe o vetor;
     }
     printf("\n");
 }
 
-main(){
-	
+int main(){
+
 	inicio = 0;
 	fim = 0;
 	int escolha,valor;
@@ -56,12 +56,12 @@ main(){
 
     case 1:
         printf("Escolha o valor: ");
-        scanf("%d", &valor);
+        scanf(" %c", &valor);
         push(valor);
         break;
     case 2:
         if (!pilhaVazia()) {
-            printf("Elemento removido: %d\n", pop());
+            printf("Elemento removido: %c\n", pop());
         } else {
             printf("\nA pilha esta vazia!\n");
         }
@@ -78,6 +78,6 @@ main(){
         break;
     }
 } while( escolha != 4);
-	
-	
+
+    return 0;
 }
