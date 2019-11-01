@@ -40,16 +40,23 @@ void exibe(int pilha[MAX]){
     printf("\n");
 }
 
+//retorna o elemento que está no topo da pilha
+char top(){
+    return pilha[--fim];
+}
+
 int main(){
 
 	inicio = 0;
 	fim = 0;
-	int escolha,valor;
+	int escolha;
+    char valor;
 	do {
     printf("\n1 EMPILHA:\n");
     printf("\n2 DESEMPILHA:\n");
-    printf("\n3 Mostra:\n");
-    printf("\n4 Sair:\n");
+    printf("\n3 Mostra elementos da pilha:\n");
+    printf("\n4 Mostra Top:\n");
+    printf("\n5 Sair:\n");
     scanf("%d",&escolha);
 
     switch(escolha) {
@@ -74,10 +81,16 @@ int main(){
             printf("\nA pilha esta vazia!\n");
         }
         break;
+    case 4:
+        if(!pilhaVazia()){
+            printf("\n%c",top());
+        }else{
+            printf("\nA pilha esta vazia!\n");
+            }
     default:
         break;
     }
-} while( escolha != 4);
+} while( escolha != 5);
 
     return 0;
 }
