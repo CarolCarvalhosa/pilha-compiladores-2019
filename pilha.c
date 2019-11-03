@@ -3,6 +3,7 @@
 #define MAX 10
 
 char pilha[MAX];
+char aux[MAX];
 int inicio,fim;
 
 int pilhaCheia(){
@@ -18,12 +19,16 @@ void push(char x){
 	printf("\nPilha cheia \n");
 	}
 }
-int pop(){
-	char aux;
+int pop(int numPop){
+	int aux;
 	if( !pilhaVazia() ){
-		aux=pilha[fim - 1];		//volta uma posiçao e passa o numero e entao decrementa
-		fim--;
-		return aux;
+        for(int i = 0; i < numPop; i++){
+            aux=pilha[fim - 1];		//volta uma posiçao e passa o numero e entao decrementa
+		    fim--;
+		    aux[i] = aux;
+        }
+        return aux[];
+		
 
 		}else{
 			printf("Pilha vazia \n");
