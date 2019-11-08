@@ -19,7 +19,9 @@ int pilhaCheia() {
 	return (sizeof(P.elem)/sizeof(P.elem[0]) == P.N);
 }
 int pilhaVazia() {
-	return (sizeof(P.elem)/sizeof(P.elem[0]) == 0);
+    //printf("\n\n... Testando a pilha ==> ......%d \n\n", P.N);
+    //printf("\n\n");
+	return (P.N == 0);
 }
 void push(char x){
 	if( !pilhaCheia() ){
@@ -51,7 +53,7 @@ void exibe(struct Pilha P){
         printf("\n%c ", P.elem[x]);	//exibe o vetor;
 
         if (x == (P.N -1)) {
-            printf(" <---- Topo (ultimo elemento inserido na pilha)");
+            printf(" <- Topo");
         }
     }
     printf("\n");
@@ -65,13 +67,21 @@ char top(){
 int main(){
 	int escolha;
     char valor;
+
 	do {
+        if (!pilhaVazia()) { // se a pilha não está vazia
+            printf("\n ------> Elemento(s) da pilha <------ \n");
+            exibe(P); // aqui usa a função exibe para mostrar os elementos
+        } else {
+            printf("\nA pilha esta vazia!\n");
+        }
+        
     printf("\n ======= MENU ======= \n");
     printf("\n1 EMPILHA:\n");
     printf("\n2 DESEMPILHA:\n");
-    printf("\n3 Mostra elementos da pilha:\n");
-    printf("\n4 Mostra Top:\n");
-    printf("\n5 Sair:\n\n");
+    //printf("\n3 Mostra elementos da pilha:\n");
+    printf("\n3 Mostra Top:\n");
+    printf("\n4 Sair:\n\n");
     scanf("%d",&escolha);
 
     switch(escolha) {
@@ -88,7 +98,7 @@ int main(){
             printf("\nA pilha esta vazia!\n");
         }
         break;
-    case 3:
+    /*case 3:
         if (!pilhaVazia()) { // se a pilha não está vazia
             printf("\n ------> Elemento(s) <------ \n");
             exibe(P); // aqui usa a função exibe para mostrar os elementos
@@ -96,7 +106,8 @@ int main(){
             printf("\nA pilha esta vazia!\n");
         }
         break;
-    case 4:
+    */
+    case 3:
         if(!pilhaVazia()){
             printf("\nTopo da Pilha: %c\n",top());
         }else{
@@ -105,7 +116,8 @@ int main(){
     default:
         break;
     }
-} while( escolha != 5);
+
+} while( escolha != 4);
 
     return 0;
 }
