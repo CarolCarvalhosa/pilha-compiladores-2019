@@ -34,8 +34,8 @@ int pop(int numPop){
 	if( !pilhaVazia() ){
         int i;
         for(i=0;i<numPop;i++){
-            aux = P.elem[P.N];		//volta uma posiçao e passa o numero e entao decrementa
-		    P.N--;
+            aux = P.elem[P.N - 1];		//volta uma posiçao e passa o numero e entao decrementa
+		    P.N = P.N - 1;
         }
         return aux;
 	}else{
@@ -47,21 +47,26 @@ int pop(int numPop){
 
 void exibe(struct Pilha P){
 	int x;
-    for(x=0;x<P.N;x++) {
-        printf("%c ", P.elem[x]);	//exibe o vetor;
+    for( x= (P.N -1); x >= 0 ; x-- ) {
+        printf("\n%c ", P.elem[x]);	//exibe o vetor;
+
+        if (x == (P.N -1)) {
+            printf(" <---- Topo (ultimo elemento inserido na pilha)");
+        }
     }
     printf("\n");
 }
 
 //retorna o elemento que está no topo da pilha
 char top(){
-    return P.elem[P.N];
+    return P.elem[P.N - 1];
 }
 
 int main(){
 	int escolha;
     char valor;
 	do {
+    printf("\n ======= MENU ======= \n");
     printf("\n1 EMPILHA:\n");
     printf("\n2 DESEMPILHA:\n");
     printf("\n3 Mostra elementos da pilha:\n");
@@ -85,7 +90,7 @@ int main(){
         break;
     case 3:
         if (!pilhaVazia()) { // se a pilha não está vazia
-            printf("\nElementos: ");
+            printf("\n ------> Elemento(s) <------ \n");
             exibe(P); // aqui usa a função exibe para mostrar os elementos
         } else {
             printf("\nA pilha esta vazia!\n");
