@@ -2,58 +2,63 @@
 #include <stdlib.h>
 #define MAX 10
 
-char pilha[MAX];
-char aux[MAX];
-int inicio,fim;
+//char pilha[MAX];
+//char aux[MAX];
+//int inicio,fim;
 
-int pilhaCheia(){
-	return (fim == MAX); 	// caso o final for igual a 10 esta cheia
+struct Pilha {
+    char elem[MAX];
+    int N;
+    //Numero corrente de elementos da pilha
+};
+
+//criando a variavel P da struct
+struct Pilha P,D;
+
+int pilhaCheia() {
+	return (sizeof(P.elem)/sizeof(P.elem[0]) == P.N);
 }
-int pilhaVazia(){
-	return (inicio == fim); 	// verifica se esta vazio e retorna;
+int pilhaVazia() {
+	return (sizeof(P.elem)/sizeof(P.elem[0]) == 0);
 }
 void push(char x){
 	if( !pilhaCheia() ){
-		pilha[fim++] = x;	//adiciona o valor e soma +1 posiçao
+		P.elem[P.N] = x;
+        P.N++;
 	}else{
-	printf("\nPilha cheia \n");
+	printf("\nPilha cheia\n");
 	}
 }
 int pop(int numPop){
 	int aux;
 	if( !pilhaVazia() ){
-        for(int i = 0; i < numPop; i++){
-            aux=pilha[fim - 1];		//volta uma posiçao e passa o numero e entao decrementa
-		    fim--;
-		    //aux[i] = aux;
+        int i;
+        for(i=0;i<numPop;i++){
+            aux = P.elem[P.N];		//volta uma posiçao e passa o numero e entao decrementa
+		    P.N--;
         }
         return aux;
-		
-
-		}else{
-			printf("Pilha vazia \n");
+	}else{
+		printf("Pilha vazia \n");
 		return -1;
-		}
 	}
+}
 
 
-void exibe(char pilha[MAX]){
-	 int x;
-    for( x = inicio; x < fim; x++) {
-        printf("%c ", pilha[x]);	//exibe o vetor;
+void exibe(struct Pilha P){
+	int x;
+    for(x=0;x<P.N;x++) {
+        printf("%c ", P.elem[x]);	//exibe o vetor;
     }
     printf("\n");
 }
 
 //retorna o elemento que está no topo da pilha
 char top(){
-    return pilha[--fim];
+    return P.elem[P.N];
 }
 
 int main(){
-
-	inicio = 0;
-	fim = 0;
 	int escolha;
     char valor;
 	do {
@@ -81,7 +86,7 @@ int main(){
     case 3:
         if (!pilhaVazia()) { // se a pilha não está vazia
             printf("\nElementos: ");
-            exibe(pilha); // aqui usa a função exibe para mostrar os elementos
+            exibe(P); // aqui usa a função exibe para mostrar os elementos
         } else {
             printf("\nA pilha esta vazia!\n");
         }
