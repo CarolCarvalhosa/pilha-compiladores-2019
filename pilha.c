@@ -25,9 +25,9 @@ int pop(int numPop){
         for(int i = 0; i < numPop; i++){
             aux=pilha[fim - 1];		//volta uma posiçao e passa o numero e entao decrementa
 		    fim--;
-		    aux[i] = aux;
+		    //aux[i] = aux;
         }
-        return aux[];
+        return aux;
 		
 
 		}else{
@@ -73,7 +73,7 @@ int main(){
         break;
     case 2:
         if (!pilhaVazia()) {
-            printf("\nElemento removido: %c\n", pop());
+            printf("\nElemento removido: %c\n", pop(1));
         } else {
             printf("\nA pilha esta vazia!\n");
         }
