@@ -38,6 +38,8 @@ int pop(int numPop){
         for(i=0;i<numPop;i++){
             aux = P.elem[P.N - 1];		//volta uma posiçao e passa o numero e entao decrementa
 		    P.N = P.N - 1;
+	D.elem[D.N] = aux;
+	D.N++;
         }
         return aux;
 	}else{
