@@ -66,6 +66,17 @@ char top(){
     return P.elem[P.N - 1];
 }
 
+void limpaTela() {
+    #if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
+        system("clear");
+    #endif
+
+    #if defined(_WIN32) || defined(_WIN64)
+        system("cls");
+    #endif
+}
+
+
 int main(){
 	int escolha;
     char valor;
@@ -79,21 +90,24 @@ int main(){
         }
         
     printf("\n ======= MENU ======= \n");
-    printf("\n1 EMPILHA:\n");
-    printf("\n2 DESEMPILHA:\n");
+    printf("\n(1) EMPILHA");
+    printf("\n(2) DESEMPILHA");
     //printf("\n3 Mostra elementos da pilha:\n");
-    printf("\n3 Mostra Top:\n");
-    printf("\n4 Sair:\n\n");
+    printf("\n(3) MOSTRA ELEMENTO NO TOPO DA PILHA");
+    printf("\n(4) SAIR\n\n");
+    printf("Escolha uma opcao ==> ");
     scanf("%d",&escolha);
 
     switch(escolha) {
 
     case 1:
-        printf("\nEscolha o valor: ");
+        printf("\nEscolha o valor para empilha: ");
         scanf(" %c", &valor);
         push(valor);
+        limpaTela();
         break;
     case 2:
+        limpaTela();
         if (!pilhaVazia()) {
             printf("\nElemento removido: %c\n", pop(1));
         } else {
@@ -110,6 +124,7 @@ int main(){
         break;
     */
     case 3:
+        limpaTela();
         if(!pilhaVazia()){
             printf("\nTopo da Pilha: %c\n",top());
         }else{
