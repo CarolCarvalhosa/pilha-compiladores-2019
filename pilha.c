@@ -1,69 +1,79 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 10
+#define MAXPILHA 50
+#define MAXUNIDPILHA 12
 
 //char pilha[MAX];
 //char aux[MAX];
-//int inicio,fim;
+int inicioPilha,fimPilha, inicioUnidPilha, fimUnidPilha;
 
-struct Pilha {
-    char elem[MAX];
-    int N;
-    //Numero corrente de elementos da pilha
+enum SimbG {
+    teste
 };
 
-//criando a variavel P da struct
-struct Pilha P,D;
+typedef union {
+   char asciiDoFonte [21];
+   int end;
+} TipAtributo;
+
+typedef struct   {
+    enum SimbG simb;
+    TipAtributo atributo;
+    int estado;
+}Pilha;
+
+Pilha pilha[MAXPILHA];   // pilha com 50 andares
+Pilha unidPilhaDePop[MAXUNIDPILHA]; // de 1 a n (pops lado direito) e 0 push lado esquerdo
 
 int pilhaCheia() {
-	return (sizeof(P.elem)/sizeof(P.elem[0]) == P.N);
+	return fimPilha == MAXPILHA;
 }
 int pilhaVazia() {
     //printf("\n\n... Testando a pilha ==> ......%d \n\n", P.N);
     //printf("\n\n");
-	return (P.N == 0);
+	return fimPilha == inicioPilha;
 }
-void push(char x){
-	if( !pilhaCheia() ){
-		P.elem[P.N] = x;
-        P.N++;
+void push(Pilha * stk){
+	if(!pilhaCheia()){
+		pilha[fimPilha].atributo.end = stk->atributo.end;
+		pilha[fimPilha].estado = stk->estado;
+		fimPilha++;
 	}else{
-	printf("\nPilha cheia\n");
+        printf("\nPilha cheia\n");
 	}
 }
-int pop(int numPop){
-	int aux;
-	if( !pilhaVazia() ){
+void pop(int numPop){
+	if(!pilhaVazia()){
         int i;
-        for(i=0;i<numPop;i++){
-            aux = P.elem[P.N - 1];		//volta uma posiçao e passa o numero e entao decrementa
-		    P.N = P.N - 1;
-	D.elem[D.N] = aux;
-	D.N++;
+        for(i = 0; i < numPop; i++){
+            unidPilhaDePop[fimUnidPilha++] = pilha[--fimPilha];
         }
-        return aux;
 	}else{
 		printf("Pilha vazia \n");
-		return -1;
 	}
 }
 
 
-void exibe(struct Pilha P){
+void exibe(Pilha * stk, int inicio, int fim){
 	int x;
-    for( x= (P.N -1); x >= 0 ; x-- ) {
-        printf("\n%c ", P.elem[x]);	//exibe o vetor;
+    for(x = fim-1; x >= inicio; x--) {
+        printf("{");
+        printf("..., ");
+        printf("%d, ", stk[x].atributo.end);
+        printf("%d", stk[x].estado);
+        printf("}");	//exibe o vetor;
 
-        if (x == (P.N -1)) {
+        if (x == fim-1) {
             printf(" <- Topo");
         }
+        printf("\n");
     }
     printf("\n");
 }
 
 //retorna o elemento que está no topo da pilha
-char top(){
-    return P.elem[P.N - 1];
+Pilha top(){
+    return pilha[fimPilha-1];
 }
 
 void limpaTela() {
@@ -80,15 +90,21 @@ void limpaTela() {
 int main(){
 	int escolha;
     char valor;
+    inicioPilha = 0;
+    fimPilha = 0;
+    inicioUnidPilha = 0;
+    fimUnidPilha = 0;
 
 	do {
         if (!pilhaVazia()) { // se a pilha não está vazia
             printf("\n ------> Elemento(s) da pilha <------ \n");
-            exibe(P); // aqui usa a função exibe para mostrar os elementos
+            exibe(pilha, inicioPilha, fimPilha); // aqui usa a função exibe para mostrar os elementos
+            printf("\n ------> Elemento(s) da pilha de pops <------ \n");
+            exibe(unidPilhaDePop, inicioUnidPilha, fimUnidPilha);
         } else {
             printf("\nA pilha esta vazia!\n");
         }
-        
+
     printf("\n ======= MENU ======= \n");
     printf("\n(1) EMPILHA");
     printf("\n(2) DESEMPILHA");
@@ -102,17 +118,29 @@ int main(){
 
     case 1:
         printf("\nEscolha o valor para empilha: ");
-        scanf(" %c", &valor);
-        push(valor);
+        Pilha * nova = (Pilha *) malloc(sizeof(Pilha));
+
+        printf("\nDigite o atributo: ");
+        scanf("%d", &nova->atributo.end);
+        printf("Digite o estado: ");
+        scanf("%d", &nova->estado);
+        //scanf(" %c", &valor);
+        push(nova);
         limpaTela();
         break;
     case 2:
-        limpaTela();
+
         if (!pilhaVazia()) {
-            printf("\nElemento removido: %c\n", pop(1));
+            int numPop;
+
+            printf("Digite o número de pop(s): ");
+            scanf("%d", &numPop);
+            pop(numPop);
+            //printf("\nElemento removido: %c\n", pop(1));
         } else {
             printf("\nA pilha esta vazia!\n");
         }
+        limpaTela();
         break;
     /*case 3:
         if (!pilhaVazia()) { // se a pilha não está vazia
