@@ -3,16 +3,14 @@
 #define MAXPILHA 50
 #define MAXUNIDPILHA 12
 
-//char pilha[MAX];
-//char aux[MAX];
 int inicioPilha,fimPilha, inicioUnidPilha, fimUnidPilha;
 
 enum SimbG {
-    teste
+    S,C,B,L,E,T,F,M,N,v,i,a,f,p,e,w,d,o,c,m,t,n,s,q
 };
 
 typedef union {
-   char asciiDoFonte [21];
+   char asciiDoFonte[21];
    int end;
 } TipAtributo;
 
@@ -28,20 +26,22 @@ Pilha unidPilhaDePop[MAXUNIDPILHA]; // de 1 a n (pops lado direito) e 0 push lad
 int pilhaCheia() {
 	return fimPilha == MAXPILHA;
 }
+
 int pilhaVazia() {
-    //printf("\n\n... Testando a pilha ==> ......%d \n\n", P.N);
-    //printf("\n\n");
 	return fimPilha == inicioPilha;
 }
+
 void push(Pilha * stk){
 	if(!pilhaCheia()){
-		pilha[fimPilha].atributo.end = stk->atributo.end;
+        pilha[fimPilha].simb = stk->simb;
+		pilha[fimPilha].atributo = stk->atributo;
 		pilha[fimPilha].estado = stk->estado;
 		fimPilha++;
 	}else{
         printf("\nPilha cheia\n");
 	}
 }
+
 void pop(int numPop){
 	if(!pilhaVazia()){
         int k;
@@ -52,7 +52,6 @@ void pop(int numPop){
 		printf("Pilha vazia \n");
 	}
 }
-
 
 void exibe(Pilha * stk, int inicio, int fim){
 	int k;
@@ -76,6 +75,7 @@ Pilha top(){
     return pilha[fimPilha-1];
 }
 
+// Isso mais a frente nao sera necessario
 void limpaTela() {
     #if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
         system("clear");
@@ -117,14 +117,16 @@ int main(){
     switch(escolha) {
 
     case 1:
-        printf("\nEscolha o valor para empilha: ");
+        printf("\n## Informe os dados da Estrutura da Pilha ##\n\n!! Lembre-se: {Simbolo, Atributo, Estado}]\n");
         Pilha * nova = (Pilha *) malloc(sizeof(Pilha));
 
+        printf("\nDigite o Simbolo (inteiro): ");
+        scanf("%u", &nova->simb);
+        printf("Simbolo escolhido ==> %u", nova->simb);
         printf("\nDigite o atributo: ");
         scanf("%d", &nova->atributo.end);
         printf("Digite o estado: ");
         scanf("%d", &nova->estado);
-        //scanf(" %c", &valor);
         push(nova);
         limpaTela();
         break;
@@ -133,7 +135,7 @@ int main(){
         if (!pilhaVazia()) {
             int numPop;
 
-            printf("Digite o número de pop(s): ");
+            printf("Digite a quantidade de POPs desejada: ");
             scanf("%d", &numPop);
             pop(numPop);
             //printf("\nElemento removido: %c\n", pop(1));
@@ -142,15 +144,6 @@ int main(){
         }
         limpaTela();
         break;
-    /*case 3:
-        if (!pilhaVazia()) { // se a pilha não está vazia
-            printf("\n ------> Elemento(s) <------ \n");
-            exibe(P); // aqui usa a função exibe para mostrar os elementos
-        } else {
-            printf("\nA pilha esta vazia!\n");
-        }
-        break;
-    */
     case 3:
         limpaTela();
         if(!pilhaVazia()){
