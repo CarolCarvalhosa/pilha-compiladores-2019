@@ -14,7 +14,7 @@ typedef union {
    int end;
 } TipAtributo;
 
-typedef struct   {
+typedef struct {
     enum SimbG simb;
     TipAtributo atributo;
     int estado;
@@ -57,7 +57,7 @@ void exibe(Pilha * stk, int inicio, int fim){
 	int k;
     for(k = fim-1; k >= inicio; k--) {
         printf("{");
-        printf("..., ");
+        printf("%u, ", stk[k].simb);
         printf("%d, ", stk[k].atributo.end);
         printf("%d", stk[k].estado);
         printf("}");	//exibe o vetor;
@@ -122,7 +122,6 @@ int main(){
 
         printf("\nDigite o Simbolo (inteiro): ");
         scanf("%u", &nova->simb);
-        printf("Simbolo escolhido ==> %u", nova->simb);
         printf("\nDigite o atributo: ");
         scanf("%d", &nova->atributo.end);
         printf("Digite o estado: ");
@@ -147,7 +146,13 @@ int main(){
     case 3:
         limpaTela();
         if(!pilhaVazia()){
-            printf("\nTopo da Pilha: %c\n",top());
+            Pilha topo = top();
+            printf("\n==== Topo da Pilha ==== \n\n");
+            printf("{");
+            printf("%u, ", topo.simb);
+            printf("%d, ", topo.atributo.end);
+            printf("%d", topo.estado);
+            printf("}");	//exibe o vetor;
         }else{
             printf("\nA pilha esta vazia!\n");
             }
