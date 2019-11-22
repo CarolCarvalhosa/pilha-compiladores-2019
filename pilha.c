@@ -44,8 +44,8 @@ void push(Pilha * stk){
 }
 void pop(int numPop){
 	if(!pilhaVazia()){
-        int i;
-        for(i = 0; i < numPop; i++){
+        int k;
+        for(k = 0; k < numPop; k++){
             unidPilhaDePop[fimUnidPilha++] = pilha[--fimPilha];
         }
 	}else{
@@ -55,15 +55,15 @@ void pop(int numPop){
 
 
 void exibe(Pilha * stk, int inicio, int fim){
-	int x;
-    for(x = fim-1; x >= inicio; x--) {
+	int k;
+    for(k = fim-1; k >= inicio; k--) {
         printf("{");
         printf("..., ");
-        printf("%d, ", stk[x].atributo.end);
-        printf("%d", stk[x].estado);
+        printf("%d, ", stk[k].atributo.end);
+        printf("%d", stk[k].estado);
         printf("}");	//exibe o vetor;
 
-        if (x == fim-1) {
+        if (k == fim-1) {
             printf(" <- Topo");
         }
         printf("\n");
