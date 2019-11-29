@@ -42,15 +42,14 @@ void push(Pilha * stk){
 	}
 }
 
-void pop(int numPop){
+Pilha pop(){
 	if(!pilhaVazia()){
-        int k;
-        for(k = 0; k < numPop; k++){
-            unidPilhaDePop[fimUnidPilha++] = pilha[--fimPilha];
-        }
+        //unidPilhaDePop[fimUnidPilha++] = 
+        return pilha[--fimPilha];
 	}else{
 		printf("Pilha vazia \n");
 	}
+     
 }
 
 void exibe(Pilha * stk, int inicio, int fim){
@@ -132,11 +131,7 @@ int main(){
     case 2:
 
         if (!pilhaVazia()) {
-            int numPop;
-
-            printf("Digite a quantidade de POPs desejada: ");
-            scanf("%d", &numPop);
-            pop(numPop);
+            unidPilhaDePop[fimUnidPilha++] = pop();
             //printf("\nElemento removido: %c\n", pop(1));
         } else {
             printf("\nA pilha esta vazia!\n");
